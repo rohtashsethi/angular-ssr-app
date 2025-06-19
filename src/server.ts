@@ -24,6 +24,11 @@ const angularApp = new AngularNodeAppEngine();
  * ```
  */
 
+app.get('/api/hello', (req, res) => {
+  // Handle API request
+  res.send({ message: 'Hello from Angular SSR app backend!' })
+});
+
 /**
  * Serve static files from /browser
  */
@@ -32,7 +37,7 @@ app.use(
     maxAge: '1y',
     index: false,
     redirect: false,
-  }),
+  })
 );
 
 /**
@@ -42,7 +47,7 @@ app.use((req, res, next) => {
   angularApp
     .handle(req)
     .then((response) =>
-      response ? writeResponseToNodeResponse(response, res) : next(),
+      response ? writeResponseToNodeResponse(response, res) : next()
     )
     .catch(next);
 });
